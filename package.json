@@ -17,10 +17,7 @@
     "sitemap": "7.1.1",
     "rss": "1.2.2",
     "remark-gfm": "3.0.1",
-    "@tailwindcss/typography": "0.5.10",
-
-    "@next/mdx": "14.1.0",
-    "@mdx-js/loader": "2.3.0"
+    "@tailwindcss/typography": "0.5.10"
   },
   "devDependencies": {
     "tailwindcss": "3.4.1",

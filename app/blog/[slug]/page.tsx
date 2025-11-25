@@ -7,28 +7,28 @@ export async function generateStaticParams() {
   const postsDir = path.join(process.cwd(), "content/posts");
   const files = fs.readdirSync(postsDir);
 
-  return files.map((filename) => ({
+  return files.map(filename => ({
     slug: filename.replace(".mdx", ""),
   }));
 }
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
+export default async function PostPage({ params }) {
   const postsDir = path.join(process.cwd(), "content/posts");
   const fullPath = path.join(postsDir, `${params.slug}.mdx`);
 
-  if (!fs.existsSync(fullPath)) {
-    return notFound();
-  }
+  if (!fs.existsSync(fullPath)) return notFound();
 
-  const file = fs.readFileSync(fullPath, "utf8");
-  const { data } = matter(file);
+  const raw = fs.readFileSync(fullPath, "utf8");
+  const { data } = matter(raw);
 
-  const MDXContent = (await import(`../../../content/posts/${params.slug}.mdx`)).default;
+  const MDXContent =
+    (await import(`../../../../content/posts/${params.slug}.mdx`)).default;
 
   return (
     <article className="prose prose-invert max-w-none">
       <h1>{data.title}</h1>
-      <p className="text-gray-400">{data.date}</p>
+      <p>{data.date}</p>
+
       <MDXContent />
     </article>
   );

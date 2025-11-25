@@ -1,0 +1,4 @@
+import { getAllPosts } from "@/lib/posts";
+import PostCard from "@/components/PostCard";
+import Newsletter from "@/components/Newsletter";
+export default async function Home(){const posts=await getAllPosts();return (<><section className="mb-20"><h1 className="text-5xl font-bold text-white mb-4">Thirumalai — Quantum Engineer</h1><p className="text-gray-300 text-lg max-w-xl">A blog on Quantum Computing, Machine Learning, Deep Tech & my life experiences. Exploring the universe one qubit at a time.</p></section><section className="space-y-10 mb-20">{posts.map(post=>(<PostCard key={post.slug} post={post}/>))}</section><Newsletter /></>);}

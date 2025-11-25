@@ -1,0 +1,1 @@
+export async function POST(req){try{const {email}=await req.json();if(!email) return new Response(JSON.stringify({error:'missing email'}),{status:400});return new Response(JSON.stringify({status:'ok'}),{status:200});}catch(e){return new Response(JSON.stringify({error:String(e)}),{status:500});} }

@@ -2,33 +2,45 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-const postsPath = path.join(process.cwd(), "content/posts");
+const postsDirectory = path.join(process.cwd(), "content/posts");
 
 export function getAllPosts() {
-  const files = fs.readdirSync(postsPath);
+  const filenames = fs.readdirSync(postsDirectory);
 
-  return files
+  const posts = filenames
+    .filter((fn) => fn.endsWith(".mdx"))
     .map((filename) => {
-      const filePath = path.join(postsPath, filename);
+      const filePath = path.join(postsDirectory, filename);
       const fileContent = fs.readFileSync(filePath, "utf8");
       const { data } = matter(fileContent);
 
       return {
-        ...data,
-        slug: filename.replace(".mdx", "")
+        slug: filename.replace(".mdx", ""),
+        title: data.title || "Untitled",
+        date: data.date || "1970-01-01",
+        tags: data.tags || [],
+        summary: data.summary || "",
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  return posts;
 }
 
 export function getPostBySlug(slug: string) {
-  const filePath = path.join(postsPath, `${slug}.mdx`);
-  const fileContent = fs.readFileSync(filePath, "utf8");
+  const filePath = path.join(postsDirectory, `${slug}.mdx`);
 
+  if (!fs.existsSync(filePath)) return null;
+
+  const fileContent = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContent);
 
   return {
-    ...data,
-    content
+    slug,
+    title: data.title || "Untitled",
+    date: data.date || "1970-01-01",
+    tags: data.tags || [],
+    summary: data.summary || "",
+    content,
   };
 }

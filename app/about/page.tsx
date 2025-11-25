@@ -5,10 +5,10 @@ export default function AboutPage() {
 
       <p className="text-gray-300 text-lg leading-relaxed">
         I’m <span className="text-cyan-400 font-semibold">Thirumalai</span>,  
-        a Quantum Engineer working at the intersection of  
-        <span className="text-violet-400"> Quantum Computing </span>,
-        <span className="text-cyan-400"> Machine Learning </span>  
-        and <span className="text-violet-400"> Deep Tech Innovations</span>.
+        a Quantum Engineer working in   
+        <span className="text-violet-400"> Quantum Algorithms </span>,
+        <span className="text-cyan-400"> Research </span>  
+        and <span className="text-violet-400"> and Development</span>.
       </p>
 
       <p className="text-gray-400 leading-relaxed">

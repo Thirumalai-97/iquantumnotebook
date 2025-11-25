@@ -1,25 +1,35 @@
-import { getPostBySlug, getAllPosts } from "@/lib/posts";
-import MDXComponents from "@/components/MDXComponents";
-import { MDXRemote } from "next-mdx-remote";
+import fs from "fs";
+import path from "path";
 import matter from "gray-matter";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  const postsDir = path.join(process.cwd(), "content/posts");
+  const files = fs.readdirSync(postsDir);
+
+  return files.map((filename) => ({
+    slug: filename.replace(".mdx", ""),
+  }));
 }
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
-  const post = await getPostBySlug(params.slug);
-  const { content } = matter((post as any).content || '');
+  const postsDir = path.join(process.cwd(), "content/posts");
+  const fullPath = path.join(postsDir, `${params.slug}.mdx`);
+
+  if (!fs.existsSync(fullPath)) {
+    return notFound();
+  }
+
+  const file = fs.readFileSync(fullPath, "utf8");
+  const { data } = matter(file);
+
+  const MDXContent = (await import(`../../../content/posts/${params.slug}.mdx`)).default;
 
   return (
-    <article>
-      <h1 className="text-4xl font-bold text-white mb-4">{(post as any).title}</h1>
-      <p className="text-gray-500 mb-10">{(post as any).date}</p>
-
-      <div className="prose prose-invert max-w-none">
-        <MDXRemote source={content} components={MDXComponents as any} />
-      </div>
+    <article className="prose prose-invert max-w-none">
+      <h1>{data.title}</h1>
+      <p className="text-gray-400">{data.date}</p>
+      <MDXContent />
     </article>
   );
 }

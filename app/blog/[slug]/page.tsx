@@ -12,7 +12,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function PostPage({ params }) {
+export default async function PostPage({ params }: { params: { slug: string } }) {
   const postsDir = path.join(process.cwd(), "content/posts");
   const fullPath = path.join(postsDir, `${params.slug}.mdx`);
 
@@ -22,7 +22,7 @@ export default async function PostPage({ params }) {
   const { data } = matter(raw);
 
   const MDXContent =
-    (await import(`../../../../content/posts/${params.slug}.mdx`)).default;
+    (await import(`../../../content/posts/${params.slug}.mdx`)).default;
 
   return (
     <article className="prose prose-invert max-w-none">

@@ -1,1 +1,0 @@
-export default function Footer(){return (<footer className='mt-20 py-10 border-t border-gray-800 text-center text-gray-500'><p>© Thirumalai — All Rights Reserved.</p><p className='text-cyan-400 mt-2'>Built with Quantum Energy ⚡</p></footer>);}

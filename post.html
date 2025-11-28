@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quantum Entanglement Notes</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+
+<body>
+  <main class="container">
+    <h1>Notes on GHZ States</h1>
+    <p class="date">Nov 28, 2025</p>
+
+    <p>
+      The GHZ state for three qubits is given by:
+    </p>
+
+    <p class="equation">
+      $$ |\text{GHZ}\rangle = \frac{1}{\sqrt{2}} (|000\rangle + |111\rangle) $$
+    </p>
+
+    <h2>Bipartite Reductions</h2>
+
+    <p>
+      Tracing out one qubit gives a mixed state with non-zero entropy.
+    </p>
+
+    <img src="images/quantum/ghz.png" alt="GHZ diagram">
+
+    <p>
+      The von Neumann entropy is defined as
+      $$
+      S(\rho) = -\mathrm{Tr}(\rho \log \rho)
+      $$
+    </p>
+
+    <hr>
+
+    <a href="index.html">← Back to home</a>
+  </main>
+</body>
+</html>
